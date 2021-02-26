@@ -1,25 +1,12 @@
 #!/bin/sh
 
-export RELATIVE=
-export ANDROID=
-
-if [ "$INPUT_FAIL_ON_ERROR" = true ] ; then
-  set -o pipefail
-fi
-
-if [ "$INPUT_RELATIVE" = true ] ; then
-  export RELATIVE=--relative
-fi
-
-if [ "$INPUT_ANDROID" = true ] ; then
-  export ANDROID=--android
-fi
-
 cd "$GITHUB_WORKSPACE"
+
+echo PWD: "$(pwd)"
 
 export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
 echo KtLint version: "$(ktlint --version)"
 
-ktlint --color --reporter=checkstyle --android \
-  | reviewdog -f=checkstyle -name="ktlint" -reporter="${INPUT_REPORTER}" -level="${INPUT_LEVEL}"
+ktlint --color --reporter=checkstyle "android/**/*.kt*" \
+  | tee reviewdog -f=checkstyle -name="ktlint" -reporter=github-pr-review -level=warning
