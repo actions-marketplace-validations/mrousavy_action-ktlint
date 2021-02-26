@@ -1,15 +1,11 @@
-FROM alpine:3.13.2
+FROM alpine:latest
 
 RUN apk --no-cache --update add git curl wget openjdk11 \
     && rm -rf /var/cache/apk/*
 
-RUN wget -O - -q https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin/
+RUN curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin
 
-RUN curl -sSL https://api.github.com/repos/pinterest/ktlint/releases/latest \
-    | grep "browser_download_url.*ktlint\"" \
-    | cut -d : -f 2,3 \
-    | tr -d \" \
-    | wget -qi -\
+RUN curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.40.0/ktlint \
     && chmod a+x ktlint \
     && mv ktlint /usr/local/bin/
 
