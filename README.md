@@ -24,32 +24,6 @@ the Pull Request Conversation:
 
 **Required**. Must be in form of `github_token: ${{ secrets.github_token }}`.
 
-### `level`
-
-Optional. Report level for reviewdog [`info`,`warning`,`error`].
-It's same as `-level` flag of reviewdog.
-The default is `error`.
-
-### `reporter`
-
-Optional. Reporter of reviewdog command [`github-pr-check`,`github-pr-review`].
-The default is `github-pr-check`.
-
-### `fail_on_error`
-
-Optional. Fails the current check if any error was found [`true`/`false`]
-The default value is false.
-
-### `relative`
-
-Optional. Print files relative to the working directory [`true`/`false`]
-The default value is true.
-
-### `android`
-
-Optional. Runs KtLint with [Android Kotlin Style Guide](https://android.github.io/kotlin-guides/style.html) [`true`/`false`]
-The default value is false.
-
 ## Example usage
 
 ```yml
@@ -69,5 +43,4 @@ jobs:
         uses: ScaCap/action-ktlint@master
         with:
           github_token: ${{ secrets.github_token }}
-          reporter: github-pr-review # Change reporter
 ```
