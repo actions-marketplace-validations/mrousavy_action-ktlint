@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM alpine:3.13.2
 
 RUN apk --no-cache --update add git curl wget openjdk11 \
     && rm -rf /var/cache/apk/*
